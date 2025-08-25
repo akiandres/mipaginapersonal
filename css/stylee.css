@@ -1,0 +1,30 @@
+ body {
+        margin: 0;
+        font-family: "Times New Roman", Times, serif;
+        background-color: #f2f2f2; /* Ejemplo de color de fondo */
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: rgb(86, 145, 71);
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        padding: 8px;
+        color: rgb(19, 41, 14);
+        font-family: "Times New Roman", Times, serif;
+        padding: 4px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: white;
+    }
