@@ -13,7 +13,7 @@
     }
 
     li {
-        float: left;
+        float: center;
     }
 
     li a {
@@ -26,8 +26,5 @@
     }
 
     li a:hover {
-        font-size: 30px;
         background-color: white;
-        transition: all 1000ms;
-        font-size-adjust: 20px; /* Este no tiene efecto en la mayoría de navegadores */
     }
