@@ -1,0 +1,37 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Times New Roman", Times, serif;
+    background-color: #f2f2f2;
+    
+}
+.nav-embed {
+    width: 100%; /*esto es para que la navbar abarque el 100% de la pagina*/
+    height: 60px;   /* esto es para que se ajuste la navbar al contenido mostrado*/
+    border: none;
+    display: block;
+}
+nav {
+    width: 100%;
+    background-color: purple; 
+}
+
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;              /* coloca los <li> en fila */
+}
+
+/*estilo de los enlaces, color de letra y lo que abarcan en la navbar*/
+nav ul li a {
+    display: block;
+    padding: 15px 150px;/*alto/ancho*/
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: green;
+}
