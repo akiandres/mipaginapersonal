@@ -27,11 +27,12 @@ nav ul {
 /*estilo de los enlaces, color de letra y lo que abarcan en la navbar*/
 nav ul li a {
     display: block;
-    padding: 15px 150px;/*alto/ancho*/
+    padding: 15px 100px;/*alto/ancho*/
     color: rgb(255, 255, 255);
     text-decoration: none;
 }
 
 nav ul li a:hover {
     background-color: green;
+
 }
