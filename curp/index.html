@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generador de CURP</title>
+ <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Generador de CURP</h1>
+  <form id="curpForm">
+    <label>Nombre(s):</label>
+    <input type="text" id="nombre" required />
+
+    <label>Primer Apellido:</label>
+    <input type="text" id="apellido1" required />
+
+    <label>Segundo Apellido:</label>
+    <input type="text" id="apellido2" required />
+
+    <label>Fecha de Nacimiento:</label>
+    <input type="date" id="fechaNacimiento" required />
+
+    <label>Sexo:</label>
+    <select id="sexo" required>
+      <option value="">Seleccione</option>
+      <option value="H">Hombre</option>
+      <option value="M">Mujer</option>
+    </select>
+
+    <!-- Aqui se selecciona el estado de nacimiento(con las claves oficiales de RENAPO)-->
+    <label>Estado de nacimiento:</label>
+    <select id="estado" required>
+      <option value="">Seleccione</option>
+      <option value="AS">Aguascalientes</option>
+      <option value="BC">Baja California</option>
+      <option value="BS">Baja California Sur</option>
+      <option value="CC">Campeche</option>
+      <option value="CL">Coahuila</option>
+      <option value="CM">Colima</option>
+      <option value="CS">Chiapas</option>
+      <option value="CH">Chihuahua</option>
+      <option value="DF">Ciudad de México</option>
+      <option value="DG">Durango</option>
+      <option value="GT">Guanajuato</option>
+      <option value="GR">Guerrero</option>
+      <option value="HG">Hidalgo</option>
+      <option value="JC">Jalisco</option>
+      <option value="MC">México</option>
+      <option value="MN">Michoacán</option>
+      <option value="MS">Morelos</option>
+      <option value="NT">Nayarit</option>
+      <option value="NL">Nuevo León</option>
+      <option value="OC">Oaxaca</option>
+      <option value="PL">Puebla</option>
+      <option value="QT">Querétaro</option>
+      <option value="QR">Quintana Roo</option>
+      <option value="SP">San Luis Potosí</option>
+      <option value="SL">Sinaloa</option>
+      <option value="SR">Sonora</option>
+      <option value="TC">Tabasco</option>
+      <option value="TS">Tamaulipas</option>
+      <option value="TL">Tlaxcala</option>
+      <option value="VZ">Veracruz</option>
+      <option value="YN">Yucatán</option>
+      <option value="ZS">Zacatecas</option>
+      <option value="NE">Nacido en el extranjero</option>
+    </select>
+
+    <button type="submit">Generar CURP</button>
+  </form>
+
+  <!-- Div donde se muestra el resultado del CURP generado -->
+  <div id="resultado"></div>
+
+  <!-- Script con la lógica para generar el CURP -->
+  <script>
+    // Función para obtener la primera vocal interna (excluye la primera letra)
+    function obtenerPrimeraVocalInterna(palabra) {
+      const vocales = 'AEIOU';
+      for (let i = 1; i < palabra.length; i++) {
+        if (vocales.includes(palabra[i])) return palabra[i];
+      }
+      return 'X'; // Si no encuentra ninguna, devuelve 'X'
+    }
+
+    // Función para obtener la primera consonante interna (excluye de la primera letra)
+    function obtenerPrimeraConsonanteInterna(palabra) {
+      const vocales = 'AEIOU';
+      for (let i = 1; i < palabra.length; i++) {
+        if (!vocales.includes(palabra[i]) && palabra[i] !== 'Ñ') return palabra[i];
+      }
+      return 'X'; // Si no encuentra ninguna, devuelve 'X'
+    }
+
+    // Función para  eliminar espacios y convertir a mayúsculas
+    function limpiarTexto(texto) {
+      return texto.trim().toUpperCase().replace(/[^A-ZÑ]/g, '');
+    }
+
+    // Evento que se ejecuta cuando se envía el formulario
+    document.getElementById("curpForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Evita que el formulario recargue la página
+
+      // Obtener los valores del formulario, eliminando espacios necesarios y convirtiendo a mayusculas
+      let nombre = limpiarTexto(document.getElementById("nombre").value);
+      let apellido1 = limpiarTexto(document.getElementById("apellido1").value);
+      let apellido2 = limpiarTexto(document.getElementById("apellido2").value);
+      let fecha = document.getElementById("fechaNacimiento").value;
+      let sexo = document.getElementById("sexo").value;
+      let estado = document.getElementById("estado").value;
+
+      // Verificar que se ingresaron todos los datos
+      if (!fecha || !sexo || !estado) {
+        document.getElementById("resultado").innerText = "Faltan datos.";
+        return;
+      }
+
+      // Dividir la fecha en partes: año, mes y día
+      let [año, mes, día] = fecha.split("-");
+      let año2 = año.slice(-2); // Obtener los últimos dos dígitos del año
+
+      // Construir el CURP paso por paso:
+      let curp =
+        apellido1[0] + // Primera letra del primer apellido
+        obtenerPrimeraVocalInterna(apellido1) + // Primera vocal interna del primer apellido
+        (apellido2[0] || 'X') + // Primera letra del segundo apellido o 'X' si no hay
+        nombre[0] + // Primera letra del nombre
+        año2 + mes + día + // Fecha de nacimiento en formato AAMMDD
+        sexo + // Sexo (H/M)
+        estado + // Clave del estado
+        obtenerPrimeraConsonanteInterna(apellido1) + // Consonante interna del primer apellido
+        obtenerPrimeraConsonanteInterna(apellido2 || 'X') + // Consonante interna del segundo apellido
+        obtenerPrimeraConsonanteInterna(nombre) + // Consonante interna del nombre
+        "00"; // Homoclave genérica (no se calcula real en este ejemplo)
+
+      // Mostrar el resultado en pantalla
+      document.getElementById("resultado").innerText = "CURP Generado: " + curp.toUpperCase();
+    });
+  </script>
+</body>
