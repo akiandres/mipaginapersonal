@@ -97,4 +97,11 @@ textarea {
   .divNotas {
     grid-template-columns: repeat(3, 1fr);
   }
+
+}
+@media (min-width: 1024px) {
+  .divNotas {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas en desktop grande */
+    gap: 2rem; /* más espacio */
+  }
 }
