@@ -1,0 +1,100 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+header {
+  background: #eee;
+  padding: 1rem;
+  position: sticky; /* para que se pegue en la pantalla y no se pierda de vista seccones */
+  top: 0;
+}
+
+section {
+  padding: 4rem 1rem; /* MÁS ESPACIO entre secciones */
+  scroll-margin-top: 80px; /* esto para que se coloqueb donde debe estar y no tener problemas con la navbar*/
+
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+nav a {
+  padding: 0.5rem;
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+
+.btnMenu {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.classnav {
+  display: none;
+}
+
+.classnav.open {
+  display: block;
+}
+
+.hero {
+  background: #f0f8f8;
+}
+
+.divNotas {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.nota {
+  background: #fafafa;
+  padding: 1rem;
+  border: 1px solid #ddd;
+}
+
+form {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 500px;
+  margin-top: 1rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  background: cyan;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+@media (min-width: 600px) {
+  nav ul {
+    flex-direction: row;
+    gap: 1rem;
+  }
+  .btnMenu {
+    display: none;
+  }
+  .classnav {
+    display: block !important;
+  }
+  .divNotas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
